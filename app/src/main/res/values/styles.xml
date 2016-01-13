@@ -1,0 +1,17 @@
+<resources>
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="actionBarStyle">@style/ActionBar</item>
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="ActionBar" parent="Widget.AppCompat.ActionBar.Solid">
+        <item name="titleTextStyle">@style/ActionBar.TitleColor</item>
+    </style>
+    <style name="ActionBar.TitleColor" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/colorTitle</item>
+    </style>
+</resources>
