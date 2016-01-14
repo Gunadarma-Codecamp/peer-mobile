@@ -84,8 +84,8 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(intent, REQUEST_CAMERA);
+            Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(camera, REQUEST_CAMERA);
         } else if (id == R.id.nav_picturebook) {
 
         } else if (id == R.id.nav_portal) {
@@ -93,7 +93,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_qrcode) {
 
         } else if (id == R.id.nav_login) {
-
+            Intent loginform = new Intent(MainActivity.this,LoginScreen.class);
+            startActivity(loginform);
         } else if (id == R.id.nav_create) {
 
         } else if (id == R.id.nav_share) {
