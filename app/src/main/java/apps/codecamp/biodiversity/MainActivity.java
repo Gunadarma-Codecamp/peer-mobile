@@ -86,17 +86,19 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(intent, REQUEST_CAMERA);
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_picturebook) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_portal) {
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_qrcode) {
 
         } else if (id == R.id.nav_login) {
 
         } else if (id == R.id.nav_create) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_manage) {
 
         }
 

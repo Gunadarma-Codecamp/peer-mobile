@@ -7,17 +7,17 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="Take a Picture" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_picturebook"
             android:icon="@drawable/ic_menu_picturebook"
             android:title="Picture Book" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_portal"
             android:icon="@drawable/ic_menu_portal"
             android:title="Portal Information" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_setting"
-            android:title="Tools" />
+            android:id="@+id/nav_qrcode"
+            android:icon="@drawable/ic_menu_qrcode"
+            android:title="Scan QR Code" />
     </group>
 
     <item android:title="Manage Application">
@@ -34,6 +34,10 @@
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Share" />
+            <item
+                android:id="@+id/nav_manage"
+                android:icon="@drawable/ic_menu_setting"
+                android:title="Tools" />
         </menu>
     </item>
 
