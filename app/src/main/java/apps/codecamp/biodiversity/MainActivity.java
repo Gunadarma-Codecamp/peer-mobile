@@ -91,7 +91,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_portal) {
 
         } else if (id == R.id.nav_qrcode) {
-
+            Intent qrcode = new Intent(MainActivity.this,CameraQRCode.class);
+            startActivity(qrcode);
         } else if (id == R.id.nav_login) {
             Intent loginform = new Intent(MainActivity.this,LoginScreen.class);
             startActivity(loginform);
