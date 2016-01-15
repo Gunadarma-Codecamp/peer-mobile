@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 public class SplashScreen extends AppCompatActivity {
 
-    public static final int detik = 5;
+    public static final int detik = 3;
     public static final int milidetik = detik*1000;
 
     @Override
