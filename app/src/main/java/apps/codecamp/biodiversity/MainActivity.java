@@ -40,7 +40,7 @@ import java.util.HashMap;
 public class MainActivity extends ListActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    int REQUEST_CAMERA = 0;
+    int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private static String url = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
     private static String image0 = "http://www.clker.com/cliparts/L/q/T/i/P/S/add-button-white-hi.png";
     private static String image1 = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
@@ -137,7 +137,13 @@ public class MainActivity extends ListActivity
             Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(camera, REQUEST_CAMERA);
         } else if (id == R.id.nav_media) {
-
+            Intent intent = new Intent(
+                    Intent.ACTION_PICK,
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intent.setType("image/*");
+            startActivityForResult(
+                    Intent.createChooser(intent, "Select File"),
+                    SELECT_FILE);
         }
 //        else if (id == R.id.nav_portal) {
 //
@@ -208,7 +214,7 @@ public class MainActivity extends ListActivity
                     R.layout.list_item, new String[]{TAG_NAME, TAG_EMAIL,
                     TAG_PHONE}, new int[]{R.id.name,
                     R.id.email, R.id.mobile});
-
+            Log.d("RESPONSE",">" + studentList);
             setListAdapter(adapter);
         }
 
