@@ -1,12 +1,16 @@
 package apps.codecamp.biodiversity;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -29,6 +33,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -43,16 +51,8 @@ public class MainActivity extends ListActivity
     int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private static String url = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
     private static String image0 = "http://www.clker.com/cliparts/L/q/T/i/P/S/add-button-white-hi.png";
-    private static String image1 = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
-    private static String image2 = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
-    private static String image3 = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
-    private static String image4 = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
-    private static String image5 = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
-    private static String image6 = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
-    private static String image7 = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
-    private static String image8 = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
-    private static String image9 = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
     ImageView imageView;
+    ImageView ivImage;
     // JSON Node names
     private static final String TAG_STUDENTINFO = "data";
     private static final String TAG_ID = "id";
@@ -70,12 +70,14 @@ public class MainActivity extends ListActivity
 //        Intent listJson = new Intent(MainActivity.this,ListJson.class);
 //        startActivity(listJson);
         imageView = (ImageView) findViewById(R.id.fab);
+        ivImage = (ImageView) findViewById(R.id.fab);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+
             }
         });
 
@@ -84,7 +86,6 @@ public class MainActivity extends ListActivity
                 this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         new GetStudents().execute();
@@ -159,13 +160,80 @@ public class MainActivity extends ListActivity
         } else if (id == R.id.nav_share) {
 
         }
-//        else if (id == R.id.nav_manage) {
-//
-//        }
+        else if (id == R.id.nav_about) {
+
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == SELECT_FILE)
+                onSelectFromGalleryResult(data);
+            else if (requestCode == REQUEST_CAMERA)
+                onCaptureImageResult(data);
+        }
+    }
+
+    private void onCaptureImageResult(Intent data) {
+        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+
+        File destination = new File(Environment.getExternalStorageDirectory(),
+                System.currentTimeMillis() + ".jpg");
+
+        FileOutputStream fo;
+        try {
+            destination.createNewFile();
+            fo = new FileOutputStream(destination);
+            fo.write(bytes.toByteArray());
+            fo.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//        ivImage.setImageBitmap(thumbnail);
+//        Bitmap bmp = BitmapFactory.decodeResource(getResources(), thumbnail);
+//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//        bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = bytes.toByteArray();
+        Intent intent = new Intent(this, DetailScreen.class);
+        intent.putExtra("picture", byteArray);
+        startActivity(intent);
+    }
+
+    @SuppressWarnings("deprecation")
+    private void onSelectFromGalleryResult(Intent data) {
+        Uri selectedImageUri = data.getData();
+        String[] projection = { MediaStore.MediaColumns.DATA };
+        Cursor cursor = managedQuery(selectedImageUri, projection, null, null,
+                null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+        cursor.moveToFirst();
+
+        String selectedImagePath = cursor.getString(column_index);
+
+        Bitmap bm;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(selectedImagePath, options);
+        final int REQUIRED_SIZE = 200;
+        int scale = 1;
+        while (options.outWidth / scale / 2 >= REQUIRED_SIZE
+                && options.outHeight / scale / 2 >= REQUIRED_SIZE)
+            scale *= 2;
+        options.inSampleSize = scale;
+        options.inJustDecodeBounds = false;
+        bm = BitmapFactory.decodeFile(selectedImagePath, options);
+
+        ivImage.setImageBitmap(bm);
     }
     public class GetStudents extends AsyncTask<Void, Void, Void> {
 

@@ -30,12 +30,29 @@
             android:name=".CameraQRCode"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ListJson" />
+        <activity android:name=".ListJson" />
         <activity
             android:name=".LoginScreen"
             android:label="@string/title_activity_login_screen"
             android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="apps.codecamp.biodiversity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".DetailScreen"
+            android:label="@string/title_activity_detail_screen"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="apps.codecamp.biodiversity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".AboutScreen"
+            android:label="@string/title_activity_about_screen"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="apps.codecamp.biodiversity.MainActivity" />
