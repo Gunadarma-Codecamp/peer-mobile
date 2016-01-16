@@ -161,7 +161,8 @@ public class MainActivity extends ListActivity
 
         }
         else if (id == R.id.nav_about) {
-
+            Intent about = new Intent(MainActivity.this,AboutScreen.class);
+            startActivity(about);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
