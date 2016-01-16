@@ -6,14 +6,14 @@
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_camera"
             android:title="Take a Picture" />
+        <!--<item-->
+            <!--android:id="@+id/nav_picturebook"-->
+            <!--android:icon="@drawable/ic_menu_picturebook"-->
+            <!--android:title="Picture Book" />-->
         <item
-            android:id="@+id/nav_picturebook"
-            android:icon="@drawable/ic_menu_picturebook"
-            android:title="Picture Book" />
-        <item
-            android:id="@+id/nav_portal"
-            android:icon="@drawable/ic_menu_portal"
-            android:title="Portal Information" />
+            android:id="@+id/nav_media"
+            android:icon="@drawable/ic_menu_media"
+            android:title="Upload Picture" />
         <item
             android:id="@+id/nav_qrcode"
             android:icon="@drawable/ic_menu_qrcode"
@@ -34,10 +34,10 @@
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Share" />
-            <item
-                android:id="@+id/nav_manage"
-                android:icon="@drawable/ic_menu_setting"
-                android:title="Tools" />
+            <!--<item-->
+                <!--android:id="@+id/nav_manage"-->
+                <!--android:icon="@drawable/ic_menu_setting"-->
+                <!--android:title="Tools" />-->
         </menu>
     </item>
 

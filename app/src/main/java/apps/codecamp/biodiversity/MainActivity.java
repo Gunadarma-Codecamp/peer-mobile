@@ -3,6 +3,8 @@ package apps.codecamp.biodiversity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,6 +20,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 
@@ -25,14 +29,30 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends ListActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
     int REQUEST_CAMERA = 0;
     private static String url = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
-
+    private static String image0 = "http://www.clker.com/cliparts/L/q/T/i/P/S/add-button-white-hi.png";
+    private static String image1 = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
+    private static String image2 = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
+    private static String image3 = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
+    private static String image4 = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
+    private static String image5 = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
+    private static String image6 = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
+    private static String image7 = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
+    private static String image8 = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
+    private static String image9 = "http://dev.pindai.co.id/e-tobacco-control/api/getIndustri";
+    ImageView imageView;
     // JSON Node names
     private static final String TAG_STUDENTINFO = "data";
     private static final String TAG_ID = "id";
@@ -49,7 +69,7 @@ public class MainActivity extends ListActivity
 //        setSupportActionBar(toolbar);
 //        Intent listJson = new Intent(MainActivity.this,ListJson.class);
 //        startActivity(listJson);
-
+        imageView = (ImageView) findViewById(R.id.fab);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +88,10 @@ public class MainActivity extends ListActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         new GetStudents().execute();
+        // Create an object for subclass of AsyncTask
+        GetXMLTask task = new GetXMLTask();
+        // Execute the task
+        task.execute(new String[]{image0});
     }
 
     @Override
@@ -112,11 +136,13 @@ public class MainActivity extends ListActivity
             // Handle the camera action
             Intent camera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(camera, REQUEST_CAMERA);
-        } else if (id == R.id.nav_picturebook) {
+        } else if (id == R.id.nav_media) {
 
-        } else if (id == R.id.nav_portal) {
-
-        } else if (id == R.id.nav_qrcode) {
+        }
+//        else if (id == R.id.nav_portal) {
+//
+//        }
+        else if (id == R.id.nav_qrcode) {
             Intent qrcode = new Intent(MainActivity.this,CameraQRCode.class);
             startActivity(qrcode);
         } else if (id == R.id.nav_login) {
@@ -126,9 +152,10 @@ public class MainActivity extends ListActivity
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_manage) {
-
         }
+//        else if (id == R.id.nav_manage) {
+//
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -197,11 +224,11 @@ public class MainActivity extends ListActivity
 
                 // Getting JSON Array node
                 JSONArray students = jsonObj.getJSONArray(TAG_STUDENTINFO);
-                Log.d("Length: ", "> " + students.length());
+//                Log.d("Length: ", "> " + students.length());
                 // looping through All Students
                 for (int i = 0; i < students.length(); i++) {
                     JSONObject c = students.getJSONObject(i);
-                    Log.d("Response: ", "> " + c);
+//                    Log.d("Response: ", "> " + c);
                     String id = c.getString(TAG_ID);
                     String name = c.getString(TAG_NAME);
                     String email = c.getString(TAG_EMAIL);
@@ -233,6 +260,58 @@ public class MainActivity extends ListActivity
         } else {
             Log.e("ServiceHandler", "Couldn't get any data from the url");
             return null;
+        }
+    }
+    private class GetXMLTask extends AsyncTask<String, Void, Bitmap> {
+        @Override
+        protected Bitmap doInBackground(String... urls) {
+            Bitmap map = null;
+            for (String url : urls) {
+                map = downloadImage(url);
+            }
+            return map;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            imageView.setImageBitmap(result);
+//            adapter.setViewBinder(new SimpleAdapter.ViewBinder());
+        }
+
+        private Bitmap downloadImage(String url) {
+            Bitmap bitmap = null;
+            InputStream stream = null;
+            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            bmOptions.inSampleSize = 1;
+
+            try {
+                stream = getHttpConnection(url);
+                bitmap = BitmapFactory.
+                        decodeStream(stream, null, bmOptions);
+                stream.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+            return bitmap;
+        }
+
+        private InputStream getHttpConnection(String urlString)
+                throws IOException {
+            InputStream stream = null;
+            URL url = new URL(urlString);
+            URLConnection connection = url.openConnection();
+
+            try {
+                HttpURLConnection httpConnection = (HttpURLConnection) connection;
+                httpConnection.setRequestMethod("GET");
+                httpConnection.connect();
+
+                if (httpConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    stream = httpConnection.getInputStream();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return stream;
         }
     }
 }
