@@ -23,12 +23,14 @@
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:text="Biodiversity"
+        android:textSize="20dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="16dp"
         android:text="Mobile Application" />
 
 </LinearLayout>
