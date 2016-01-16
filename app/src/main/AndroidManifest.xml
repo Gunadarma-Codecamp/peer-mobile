@@ -30,7 +30,6 @@
             android:name=".CameraQRCode"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ListJson" />
         <activity
             android:name=".LoginScreen"
             android:label="@string/title_activity_login_screen"
@@ -56,6 +55,11 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="apps.codecamp.biodiversity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".BrowserScreen"
+            android:label="@string/title_activity_browser_screen"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

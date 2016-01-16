@@ -22,4 +22,5 @@
     </string>
     <string name="title_activity_detail_screen">DetailScreen</string>
     <string name="title_activity_about_screen">AboutScreen</string>
+    <string name="title_activity_browser_screen">BrowserScreen</string>
 </resources>

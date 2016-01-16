@@ -13,10 +13,76 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="64dp"
-        android:id="@+id/imageView"
+        android:layout_height="210dp"
+        android:id="@+id/imageView3"
         android:src="@drawable/icon_biodiv"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginTop="85dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Join Research Between"
+        android:id="@+id/textView2"
+        android:textSize="14dp"
+        android:layout_above="@+id/imageView5"
+        android:layout_centerHorizontal="true" />
+
+
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:id="@+id/imageView4"
+        android:src="@drawable/icon_kehati"
+        android:layout_alignBottom="@+id/imageView5"
+        android:layout_toLeftOf="@+id/textView2"
+        android:layout_toStartOf="@+id/textView2" />
+
+    <ImageView
+        android:layout_width="130dp"
+        android:layout_height="60dp"
+        android:id="@+id/imageView5"
+        android:src="@drawable/icon_arnold"
+        android:layout_weight="0.14"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="23dp" />
+
+    <ImageView
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:id="@+id/imageView6"
+        android:src="@drawable/icon_gundar"
+        android:layout_alignBottom="@+id/imageView5"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_toEndOf="@+id/textView2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Biodiversity"
+        android:id="@+id/textView3"
+        android:textSize="28dp"
+        android:textColor="#4caf50"
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/imageView3"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="mobile application"
+        android:id="@+id/textView4"
+        android:textSize="20dp"
+        android:textColor="#4caf50"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true" />
+
+
 </RelativeLayout>

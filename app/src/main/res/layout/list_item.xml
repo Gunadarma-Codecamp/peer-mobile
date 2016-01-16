@@ -9,7 +9,7 @@
         android:id="@+id/thumbnailList"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:src="@drawable/banner_biodiv"
+        android:src="@drawable/no_prev"
         android:scaleType="centerCrop"
         />
 

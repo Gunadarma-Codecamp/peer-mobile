@@ -15,20 +15,6 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="0dp" >
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Menu"
-            android:id="@+id/MenuButton"
-            android:layout_gravity="right|bottom" />
-
-        <Button
-            android:id="@+id/ScanButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left|bottom"
-            android:layout_weight="1"
-            android:text="Scan" />
     </FrameLayout>
 
 </RelativeLayout>

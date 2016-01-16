@@ -61,30 +61,30 @@ public class CameraQRCode extends ActionBarActivity {
         FrameLayout preview = (FrameLayout) findViewById(R.id.cameraPreview);
         preview.addView(mPreview);
 
-        scanButton = (Button) findViewById(R.id.ScanButton);
+//        scanButton = (Button) findViewById(R.id.ScanButton);
 
-        scanButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if (barcodeScanned) {
-                    barcodeScanned = false;
-                    mCamera.setPreviewCallback(previewCb);
-                    mCamera.startPreview();
-                    previewing = true;
-                    mCamera.autoFocus(autoFocusCB);
-                }
-            }
-        });
+//        scanButton.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                if (barcodeScanned) {
+//                    barcodeScanned = false;
+//                    mCamera.setPreviewCallback(previewCb);
+//                    mCamera.startPreview();
+//                    previewing = true;
+//                    mCamera.autoFocus(autoFocusCB);
+//                }
+//            }
+//        });
 
-        menuButton = (Button) findViewById(R.id.MenuButton);
+//        menuButton = (Button) findViewById(R.id.MenuButton);
 
-        menuButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent myIntent = new Intent(CameraQRCode.this, MainActivity.class);
-                mCamera.stopPreview();
-                releaseCamera();
-                CameraQRCode.this.startActivity(myIntent);
-            }
-        });
+//        menuButton.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Intent myIntent = new Intent(CameraQRCode.this, MainActivity.class);
+//                mCamera.stopPreview();
+//                releaseCamera();
+//                CameraQRCode.this.startActivity(myIntent);
+//            }
+//        });
 
     }
 
@@ -136,7 +136,7 @@ public class CameraQRCode extends ActionBarActivity {
             barcode.setData(data);
 
             int result = scanner.scanImage(barcode);
-
+            Log.d("RESULT QRCODE ", ">>>>" + result);
             if (result != 0) {
                 previewing = false;
                 mCamera.setPreviewCallback(null);
@@ -153,6 +153,10 @@ public class CameraQRCode extends ActionBarActivity {
                             Toast.LENGTH_SHORT).show();
 
                     barcodeScanned = true;
+
+                    Intent webview = new Intent(CameraQRCode.this, BrowserScreen.class);
+                    webview.putExtra("databrowser", scanResult);
+                    startActivity(webview);
 
                     break;
                 }
