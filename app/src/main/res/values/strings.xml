@@ -23,4 +23,6 @@
     <string name="title_activity_detail_screen">DetailScreen</string>
     <string name="title_activity_about_screen">AboutScreen</string>
     <string name="title_activity_browser_screen">BrowserScreen</string>
+    <string name="title_activity_signup_screen">Sign Up</string>
+    <string name="title_activity_register_screen">Sign Up</string>
 </resources>

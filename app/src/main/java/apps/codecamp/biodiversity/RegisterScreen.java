@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -38,7 +40,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginScreen extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class RegisterScreen extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -58,7 +60,7 @@ public class LoginScreen extends AppCompatActivity implements LoaderCallbacks<Cu
     private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private AutoCompleteTextView mEmailView;
+    private AutoCompleteTextView mRegisterView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
@@ -66,13 +68,13 @@ public class LoginScreen extends AppCompatActivity implements LoaderCallbacks<Cu
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
         setupActionBar();
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mRegisterView = (AutoCompleteTextView) findViewById(R.id.username_register);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password);
+        mPasswordView = (EditText) findViewById(R.id.password_register);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -84,27 +86,35 @@ public class LoginScreen extends AppCompatActivity implements LoaderCallbacks<Cu
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        Button mRegisterButton = (Button) findViewById(R.id.register_button);
+        mRegisterButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
             }
         });
 
-        Button signupScreen = (Button) findViewById(R.id.havenAccount);
-        signupScreen.setOnClickListener(new OnClickListener() {
+        Button loginScreen = (Button) findViewById(R.id.alreadyHave);
+        loginScreen.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent registerform = new Intent(LoginScreen.this,RegisterScreen.class);
-                startActivity(registerform);
+                Intent loginForm = new Intent(RegisterScreen.this, LoginScreen.class);
+                startActivity(loginForm);
                 finish();
             }
         });
 
+
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
+
+//    @Override
+//    public void onBackPressed() {
+//        Intent mainform = new Intent(RegisterScreen.this,MainActivity.class);
+//        startActivity(mainform);
+//        finish();
+//    }
 
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
@@ -122,7 +132,7 @@ public class LoginScreen extends AppCompatActivity implements LoaderCallbacks<Cu
             return true;
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(mRegisterView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
                     .setAction(android.R.string.ok, new View.OnClickListener() {
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
@@ -171,11 +181,11 @@ public class LoginScreen extends AppCompatActivity implements LoaderCallbacks<Cu
         }
 
         // Reset errors.
-        mEmailView.setError(null);
+        mRegisterView.setError(null);
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
+        String email = mRegisterView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -190,12 +200,12 @@ public class LoginScreen extends AppCompatActivity implements LoaderCallbacks<Cu
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
+            mRegisterView.setError(getString(R.string.error_field_required));
+            focusView = mRegisterView;
             cancel = true;
         } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
+            mRegisterView.setError(getString(R.string.error_invalid_email));
+            focusView = mRegisterView;
             cancel = true;
         }
 
@@ -295,10 +305,10 @@ public class LoginScreen extends AppCompatActivity implements LoaderCallbacks<Cu
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(LoginScreen.this,
+                new ArrayAdapter<>(RegisterScreen.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
-        mEmailView.setAdapter(adapter);
+        mRegisterView.setAdapter(adapter);
     }
 
 

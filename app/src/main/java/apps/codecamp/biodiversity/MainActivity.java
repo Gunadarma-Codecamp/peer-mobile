@@ -156,7 +156,8 @@ public class MainActivity extends ListActivity
             Intent loginform = new Intent(MainActivity.this,LoginScreen.class);
             startActivity(loginform);
         } else if (id == R.id.nav_create) {
-
+            Intent registerform = new Intent(MainActivity.this,RegisterScreen.class);
+            startActivity(registerform);
         } else if (id == R.id.nav_share) {
 
         }

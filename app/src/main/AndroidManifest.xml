@@ -59,7 +59,14 @@
         <activity
             android:name=".BrowserScreen"
             android:label="@string/title_activity_browser_screen"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".RegisterScreen"
+            android:label="@string/title_activity_register_screen"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="apps.codecamp.biodiversity.MainActivity" />
         </activity>
     </application>
 
